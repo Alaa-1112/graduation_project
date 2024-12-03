@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kids/numbers/quiz_math.dart';
 
 import 'math_learn.dart';
+import 'math_video.dart';
 
 class Numbers extends StatefulWidget {
   const Numbers({super.key});
@@ -78,7 +79,7 @@ class _NumbersState extends State<Numbers> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 150),
+                SizedBox(height: 80),
                 Content(
                   txt: "تعلم معنا الارقام",
                   img: "assets/images/learn_num.png",
@@ -87,6 +88,19 @@ class _NumbersState extends State<Numbers> with SingleTickerProviderStateMixin {
                       context,
                       MaterialPageRoute(
                         builder: (context) => LearnMath(),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 30),
+                Content(
+                  txt: "شاهد الفيديوهات",
+                  img: "assets/images/math_video.png",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>MathVideo(),
                       ),
                     );
                   },
@@ -120,7 +134,7 @@ class _NumbersState extends State<Numbers> with SingleTickerProviderStateMixin {
             child: Image.asset(
               "assets/images/num_fly.png",
               width: 200,
-              height: 200,
+              height: 150,
             ),
           ),
           // صورة متحركة من اليسار لليمين
@@ -128,7 +142,7 @@ class _NumbersState extends State<Numbers> with SingleTickerProviderStateMixin {
             animation: _bottomAnimation,
             builder: (context, child) {
               return Positioned(
-                bottom: 20,
+                bottom: 10,
                 left: _bottomAnimation.value,
                 child: child!,
               );
@@ -136,7 +150,7 @@ class _NumbersState extends State<Numbers> with SingleTickerProviderStateMixin {
             child: Image.asset(
               "assets/images/train.png",
               width: 200,
-              height: 200,
+              height: 150,
             ),
           ),
         ],

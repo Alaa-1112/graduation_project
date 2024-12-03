@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+import 'numbers.dart';
+
 void main() => runApp(MathQuizApp());
 
 class MathQuizApp extends StatelessWidget {
@@ -149,6 +151,7 @@ class _MathQuizState extends State<MathQuiz> {
     }
   }
 
+
   Future<void> _playSound(String soundPath) async {
     try {
       await _audioPlayer.play(AssetSource(soundPath));
@@ -168,7 +171,6 @@ class _MathQuizState extends State<MathQuiz> {
 
     return int.tryParse(input) ?? -1;
   }
-
   void _showResults() {
     showDialog(
       context: context,
@@ -182,10 +184,29 @@ class _MathQuizState extends State<MathQuiz> {
             },
             child: const Text('موافق'),
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => MathQuiz()),
+              );
+            },
+            child: const Text('إعادة الاختبار'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Numbers()),
+              );
+            },
+            child: const Text('الصفحة الرئيسية'),
+          ),
+
         ],
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kids/animals/animal1.dart';
 import 'package:kids/auth/child_login.dart';
 import 'package:kids/home/home.dart';
+import 'package:kids/numbers/numbers.dart';
 import 'package:kids/onboarding/onboarding1.dart';
 import 'package:kids/onboarding/onboarding2.dart';
 import 'package:kids/story/story.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         "onboarding2" : (context) => Onboarding2(),
         "childlogin" : (context) => ChildLoginScreen(),
         "home" : (context) => Home(),
+        "numbers" : (context) => Numbers(),
       }
     );
   }

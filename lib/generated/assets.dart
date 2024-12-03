@@ -73,6 +73,7 @@ class Assets {
   static const String imagesMamy = 'assets/images/mamy.png';
   static const String imagesMath = 'assets/images/math.png';
   static const String imagesMathQuiz = 'assets/images/math_quiz.png';
+  static const String imagesMathVideo = 'assets/images/math_video.png';
   static const String imagesMonk = 'assets/images/monk.jpeg';
   static const String imagesMonkey = 'assets/images/monkey.png';
   static const String imagesNumFly = 'assets/images/num_fly.png';
