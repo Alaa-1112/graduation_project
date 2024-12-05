@@ -73,35 +73,61 @@ class _EnglishAlphabetsPageState extends State<EnglishAlphabetsPage>
 
     ];
 
-    return GridView.count(
-      crossAxisCount: 2,
-      children: letters
-          .map(
-            (letterWord) => GestureDetector(
-          onTap: () {
-            playSound(letterWord.letter.toLowerCase());
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LetterPage(
-                  letter: letterWord.letter,
-                  word: letterWord.word,
-                  image: letterWord.image,
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+        width: double.infinity,
+        child: Column(
+        children: [
+        Padding(
+        padding: const EdgeInsets.only(right: 320.0, top: 30),
+    child: IconButton(
+    onPressed: () {
+    Navigator.of(context).pop();
+    },
+    icon: Icon(
+    Icons.arrow_back,
+    color: Colors.black,
+    ),
+    ),
+    ),
+      Expanded(
+        child: GridView.count(
+        crossAxisCount: 2,
+        children: letters
+            .map(
+              (letterWord) => GestureDetector(
+            onTap: () {
+              playSound(letterWord.letter.toLowerCase());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LetterPage(
+                    letter: letterWord.letter,
+                    word: letterWord.word,
+                    image: letterWord.image,
+                  ),
                 ),
-              ),
-            );
-          },
-          child: Card(
-              child: Center(
-                child: Text(letterWord.letter,style:TextStyle(fontSize:50,fontWeight: FontWeight.bold,color:Colors.orange  ) ,),
+              );
+            },
+            child: Card(
+                color: Color(0xFFFA6E5A),
 
-              )
+                //  color = Color(0xFA6E5A);
 
+                child: Center(
+                  child: Text(letterWord.letter,style:TextStyle(fontSize:50,fontWeight: FontWeight.bold,color:Colors.white  ) ,),
+
+                )
+
+            ),
           ),
-        ),
-      )
-          .toList(),
-    );
+        )
+            .toList(),
+            ),
+      )]
+    )));
+
   }
 }
 

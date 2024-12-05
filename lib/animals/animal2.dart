@@ -4,15 +4,25 @@ import 'package:flutter/material.dart';
 class Animaldetails extends StatefulWidget {
   const Animaldetails({
     super.key,
-    required this.image,
     required this.Name,
-    required this.sound, required this.Name1,
+    required this.sound, required this.Name1, required this.bimage,
+    required this.nameColor,
+    required this.name1Top,
+    required this.name1Left,
+    required this.nameTop,
+    required this.nameLeft,
   });
 
-  final String image;
   final String Name;
   final String Name1;
   final String sound;
+  final String bimage;
+
+  final Color nameColor;
+  final double name1Top;
+  final double name1Left;
+  final double nameTop;
+  final double nameLeft;
 
   @override
   State<Animaldetails> createState() => _AnimaldetailsState();
@@ -25,8 +35,6 @@ class _AnimaldetailsState extends State<Animaldetails> {
   @override
   void initState() {
     super.initState();
-
-    // Preload the sound file to ensure it's ready to play
     _audioPlayer.setSource(AssetSource(widget.sound)).catchError((error) {
       debugPrint("AudioPlayer error: $error");
     });
@@ -34,7 +42,6 @@ class _AnimaldetailsState extends State<Animaldetails> {
 
   @override
   void dispose() {
-    // Release resources when the widget is disposed
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -47,94 +54,79 @@ class _AnimaldetailsState extends State<Animaldetails> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/for.jpg"),
+            image: AssetImage(widget.bimage),
             fit: BoxFit.fill,
           ),
         ),
         child: Stack(
           children: [
-             Positioned(
-               top: 40,
-               left: 20,
-               child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop("animal");
-                      },
-                      icon: Icon(Icons.arrow_back, color: Colors.brown[800], size: 40),
-                    ),
-             ),
-
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 80.0),
-                child: Text(
-                  widget.Name1,
-                  style: TextStyle(
-                    color: Colors.brown[800],
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SpicyRice',
-                    fontSize: 70,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+            Positioned(
+              top: 40,
+              left: 20,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop("animal");
+                },
+                icon: Icon(Icons.arrow_back, color: Colors.brown[800], size: 40),
               ),
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 170.0),
-                child: Text(
-                  widget.Name,
-                  style: TextStyle(
-                    color: Colors.brown[800],
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SpicyRice',
-                    fontSize: 70,
-                  ),
-                  textAlign: TextAlign.center,
+            Positioned(
+              top: widget.name1Top,
+              left: widget.name1Left,
+              child: Text(
+                widget.Name1,
+                style: TextStyle(
+                  color: widget.nameColor,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'SpicyRice',
+                  fontSize: 70,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
-
-
-                  Positioned(
-                    bottom:170 ,
-                      left: 50,
-                      child: Image.asset(widget.image)),
-
-               Positioned(
-                 left: 160,
-                 bottom: 20,
-                 child: IconButton(
-                      icon: Icon(
-                        isPlaying
-                            ? Icons.pause_circle_filled
-                            : Icons.play_circle_fill,
-                        color: Colors.brown[800],
-                        size: 70,
-                      ),
-                      onPressed: () async {
-                        try {
-                          if (isPlaying) {
-                            await _audioPlayer.pause();
-                          } else {
-                            await _audioPlayer.play(AssetSource(widget.sound));
-                          }
-                          setState(() {
-                            isPlaying = !isPlaying;
-                          });
-                        } catch (error) {
-                          debugPrint("Error playing sound: $error");
-                        }
-                      },
-                    ),
-               ),
-
-              ],
+            Positioned(
+              top: widget.nameTop,
+              left: widget.nameLeft,
+              child: Text(
+                widget.Name,
+                style: TextStyle(
+                  color: widget.nameColor,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'SpicyRice',
+                  fontSize: 70,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-
+            Positioned(
+              left: 160,
+              bottom: 20,
+              child: IconButton(
+                icon: Icon(
+                  isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill,
+                  color: Colors.brown[800],
+                  size: 70,
+                ),
+                onPressed: () async {
+                  try {
+                    if (isPlaying) {
+                      await _audioPlayer.pause();
+                    } else {
+                      await _audioPlayer.play(AssetSource(widget.sound));
+                    }
+                    setState(() {
+                      isPlaying = !isPlaying;
+                    });
+                  } catch (error) {
+                    debugPrint("Error playing sound: $error");
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+

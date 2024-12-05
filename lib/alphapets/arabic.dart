@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kids/class/letter_class.dart';
 
 import 'letter.dart';
+import 'letter_arab.dart';
 
 
 class ArabicAlphabetsPage extends StatefulWidget {
@@ -74,7 +75,26 @@ class _ArabicAlphabetsPageState extends State<ArabicAlphabetsPage>
       LetterWord(letter: 'ي', word: 'يد',sound: "assets/audio/ب.mp3",image: "assets/images/يد.png"),
     ];
 
-    return GridView.count(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        width: double.infinity,
+        child: Column(
+            children: [
+        Padding(
+        padding: const EdgeInsets.only(right: 320.0, top: 30),
+        child: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      Expanded(
+      child:GridView.count(
       crossAxisCount: 2,
       children: letters
           .map(
@@ -84,7 +104,7 @@ class _ArabicAlphabetsPageState extends State<ArabicAlphabetsPage>
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LetterPage(
+                builder: (context) => LetterArab (
                   letter: letterWord.letter,
                   word: letterWord.word,
                   image: letterWord.image,
@@ -93,8 +113,9 @@ class _ArabicAlphabetsPageState extends State<ArabicAlphabetsPage>
             );
           },
           child: Card(
+         color:   Color(0xFF8E97FD),
               child: Center(
-                child: Text(letterWord.letter,style:TextStyle(fontSize:50,fontWeight: FontWeight.bold,color:Colors.orange  ) ,),
+                child: Text(letterWord.letter,style:TextStyle(fontSize:50,fontWeight: FontWeight.bold,color:Colors.white) ,),
 
               )
 
@@ -102,7 +123,8 @@ class _ArabicAlphabetsPageState extends State<ArabicAlphabetsPage>
         ),
       )
           .toList(),
-    );
+        ))]
+      )));
   }
 }
 

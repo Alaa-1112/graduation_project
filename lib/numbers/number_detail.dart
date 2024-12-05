@@ -1,4 +1,5 @@
-/*import 'dart:async';
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -7,45 +8,63 @@ class Numdetail extends StatefulWidget {
     super.key,
     required this.num,
     required this.sound,
-    required this.image,
-    required this.backimg,
   });
 
   final String num;
-  final String backimg;
   final String sound;
-  final String image;
 
   @override
   State<Numdetail> createState() => _NumdetailState();
 }
 
-class _NumdetailState extends State<Numdetail> with TickerProviderStateMixin {
+class _NumdetailState extends State<Numdetail> {
   final List<int> _items = [];
-  Timer? _timer;
+  final List<Offset> _positions = [];
+  final List<Offset> _randomPositions = [];
   late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    _startAddingItemsWithSound();
   }
 
-  Future<void> _startAddingItemsWithSound() async {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _generateRandomPositions();
+  }
+
+  void _generateRandomPositions() {
     _items.clear();
-    _timer?.cancel();
+    _positions.clear();
+    _randomPositions.clear();
 
     final String normalizedNum = convertArabicToEnglishNumbers(widget.num);
     final int totalItems = int.tryParse(normalizedNum) ?? 0;
 
-    for (int i = 0; i < totalItems; i++) {
-      await Future.delayed(const Duration(seconds: 1)); // تأخير بين كل رقم
-      if (!mounted) return; // إذا تم الخروج من الصفحة
-      setState(() {
+    if (totalItems > 0) {
+      final Random random = Random();
+      final screenWidth = MediaQuery.of(context).size.width;
+      final screenHeight = MediaQuery.of(context).size.height;
+
+      for (int i = 0; i < totalItems; i++) {
         _items.add(i + 1);
+        _positions.add(Offset(screenWidth / 2, -80));  // بدأ الصور من الأعلى
+        _randomPositions.add(Offset(random.nextDouble() * screenWidth, random.nextDouble() * screenHeight));  // توليد مواقع عشوائية
+      }
+
+      setState(() {});
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        setState(() {
+          for (int i = 0; i < _positions.length; i++) {
+            _positions[i] = _randomPositions[i];
+          }
+        });
       });
-      _playSound(); // تشغيل الصوت مع الرقم
+
+      _playSound(); // تشغيل الصوت بعد إضافة العناصر
     }
   }
 
@@ -55,7 +74,6 @@ class _NumdetailState extends State<Numdetail> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _timer?.cancel();
     _audioPlayer.stop(); // إيقاف الصوت عند مغادرة الصفحة
     _audioPlayer.dispose();
     super.dispose();
@@ -69,7 +87,7 @@ class _NumdetailState extends State<Numdetail> with TickerProviderStateMixin {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(widget.backimg),
+            image: AssetImage("assets/images/خلية.jpg"),
             fit: BoxFit.fill,
           ),
         ),
@@ -87,191 +105,24 @@ class _NumdetailState extends State<Numdetail> with TickerProviderStateMixin {
             ),
             Positioned(
               bottom: 40,
-              left: 170,
+              left: 250,
               child: Text(
                 widget.num,
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 120,
+                  color: Colors.brown,
+                  fontSize: 150,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 80.0),
-              child: GridView.builder(
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6, // عدد الأعمدة
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                ),
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  final animationController = AnimationController(
-                    vsync: this,
-                    duration: const Duration(milliseconds: 500),
-                  )..forward();
-
-                  final animation = Tween<Offset>(
-                    begin: const Offset(0, -1),
-                    end: const Offset(0, 0),
-                  ).animate(CurvedAnimation(
-                    parent: animationController,
-                    curve: Curves.easeInOut,
-                  ));
-
-                  return SlideTransition(
-                    position: animation,
-                    child: Image.asset(widget.image, width: 80), // عرض الصورة فقط
-                  );
-                },
+            for (int i = 0; i < _items.length; i++)
+              AnimatedPositioned(
+                key: ValueKey(_items[i]),
+                left: _positions.isNotEmpty ? _positions[i].dx : 0,
+                top: _positions.isNotEmpty ? _positions[i].dy : 0,
+                duration: Duration(seconds: 2),
+                child: Image.asset("assets/images/bee.png", width: 80), // عرض الصورة فقط
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-String convertArabicToEnglishNumbers(String input) {
-  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-  for (int i = 0; i < arabicDigits.length; i++) {
-    input = input.replaceAll(arabicDigits[i], englishDigits[i]);
-  }
-
-  return input;
-}*/
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-
-class Numdetail extends StatefulWidget {
-  const Numdetail({
-    super.key,
-    required this.num,
-    required this.sound,
-    required this.image,
-    required this.backimg,
-  });
-
-  final String num;
-  final String backimg;
-  final String sound;
-  final String image;
-
-  @override
-  State<Numdetail> createState() => _NumdetailState();
-}
-
-class _NumdetailState extends State<Numdetail> with TickerProviderStateMixin {
-  final List<int> _items = [];
-  late AudioPlayer _audioPlayer;
-
-  @override
-  void initState() {
-    super.initState();
-    _audioPlayer = AudioPlayer();
-    _startAddingItemsAndPlaySound();
-  }
-
-  void _startAddingItemsAndPlaySound() {
-    _items.clear();
-
-    final String normalizedNum = convertArabicToEnglishNumbers(widget.num);
-    final int totalItems = int.tryParse(normalizedNum) ?? 0;
-
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        for (int i = 0; i < totalItems; i++) {
-          _items.add(i + 1);
-        }
-        _playSound(); // تشغيل الصوت بعد إضافة العناصر
-      });
-    });
-  }
-
-  Future<void> _playSound() async {
-    await _audioPlayer.play(AssetSource(widget.sound));
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.stop(); // إيقاف الصوت عند مغادرة الصفحة
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(widget.backimg),
-            fit: BoxFit.fill,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 30,
-              left: 5,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(Icons.arrow_back, color: Colors.brown[800], size: 40),
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              left: 170,
-              child: Text(
-                widget.num,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 120,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 80.0),
-              child: GridView.builder(
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6, // عدد الأعمدة
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                ),
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  final animationController = AnimationController(
-                    vsync: this,
-                    duration: const Duration(milliseconds: 500),
-                  )..forward();
-
-                  final animation = Tween<Offset>(
-                    begin: const Offset(0, -1),
-                    end: const Offset(0, 0),
-                  ).animate(CurvedAnimation(
-                    parent: animationController,
-                    curve: Curves.easeInOut,
-                  ));
-
-                  return SlideTransition(
-                    position: animation,
-                    child: Image.asset(widget.image, width: 80), // عرض الصورة فقط
-                  );
-                },
-              ),
-            ),
           ],
         ),
       ),
@@ -289,5 +140,12 @@ String convertArabicToEnglishNumbers(String input) {
 
   return input;
 }
+
+
+
+
+
+
+
 
 

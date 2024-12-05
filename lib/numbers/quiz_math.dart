@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home/profile.dart';
 import 'numbers.dart';
 
 void main() => runApp(MathQuizApp());
@@ -142,7 +144,7 @@ class _MathQuizState extends State<MathQuiz> {
         _currentIndex++;
       });
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeIn,
       );
       _playSound(_questions[_currentIndex].soundQuestion);
@@ -160,6 +162,10 @@ class _MathQuizState extends State<MathQuiz> {
       print("Error playing sound: $e");
     }
   }
+  void _saveScore(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('child_score', score);
+  }
 
   int convertArabicToEnglishNumbers(String input) {
     const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
@@ -172,6 +178,7 @@ class _MathQuizState extends State<MathQuiz> {
     return int.tryParse(input) ?? -1;
   }
   void _showResults() {
+    _saveScore(_score); // حفظ النتيجة
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -196,16 +203,16 @@ class _MathQuizState extends State<MathQuiz> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => Numbers()),
+                MaterialPageRoute(builder: (context) => Profile()),
               );
             },
             child: const Text('الصفحة الرئيسية'),
           ),
-
         ],
       ),
     );
   }
+
 
 
   @override

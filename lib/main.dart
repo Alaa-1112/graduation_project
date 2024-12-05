@@ -7,7 +7,6 @@ import 'package:kids/onboarding/onboarding1.dart';
 import 'package:kids/onboarding/onboarding2.dart';
 import 'package:kids/story/story.dart';
 
-import 'animals/lottie.dart';
 import 'animals/splash.dart';
 import 'alphapets/arabic.dart';
 import 'colors/page_color.dart';

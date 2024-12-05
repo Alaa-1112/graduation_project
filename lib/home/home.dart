@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
     {
       "image": "assets/images/colors.png",
       "title": "الالوان",
-      "color": "8135D3",
+      "color": "F2E266",
       "text_color": "FFECCC",
     },
     {

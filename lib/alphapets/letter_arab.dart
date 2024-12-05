@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LetterPage extends StatefulWidget {
+class LetterArab extends StatefulWidget {
   final String letter;
   final String word;
   final String image;
 
-  const LetterPage({
+  const LetterArab({
     Key? key,
     required this.letter,
     required this.word,
@@ -13,10 +13,10 @@ class LetterPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LetterPageState createState() => _LetterPageState();
+  _LetterArabState createState() => _LetterArabState();
 }
 
-class _LetterPageState extends State<LetterPage> with SingleTickerProviderStateMixin {
+class _LetterArabState extends State<LetterArab> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _animation;
 
@@ -50,8 +50,8 @@ class _LetterPageState extends State<LetterPage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color:  Color(0xFFFA6E5A),size:40 ),
-        title: Text(widget.letter,style: TextStyle(color:Color(0xFFFA6E5A),fontWeight: FontWeight.bold, fontSize: 40, ),),
+        iconTheme: IconThemeData(color:  Color(0xFF8E97FD),size:40 ),
+        title: Text(widget.letter,style: TextStyle(color:Color(0xFF8E97FD),fontWeight: FontWeight.bold, fontSize: 40, ),),
       ),
       body: Center(
         child: Column(
@@ -63,7 +63,7 @@ class _LetterPageState extends State<LetterPage> with SingleTickerProviderStateM
               style: const TextStyle(
                 fontSize: 80,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFA6E5A),
+                color: Color(0xFF8E97FD),
               ),
             ),
 
@@ -72,7 +72,7 @@ class _LetterPageState extends State<LetterPage> with SingleTickerProviderStateM
               widget.word,
               style: const TextStyle(
                 fontSize: 50,
-                color:Color(0xFFFA6E5A),
+                color:Color(0xFF8E97FD),
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -20,6 +20,7 @@ class _NumberHomeState extends State<NumberHome> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
+
         ),
         child: Column(
           children: [
