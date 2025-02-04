@@ -16,13 +16,24 @@ class _StoryState extends State<Story> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 48.0,left: 15),
+            padding: const EdgeInsets.only(right: 320.0, top: 25),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop('');
+              },
+               // Colors.orange.shade800
+              icon: Icon(Icons.arrow_back, color:Color(0xFF45FFD4), size: 30),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0,left: 15),
             child: Container(
               width: 360,
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                gradient: LinearGradient(colors: [Colors.orange,Colors.deepOrange],
+   // [Colors.orange,Colors.deepOrange] 87DED9
+                gradient: LinearGradient(colors: [Color(0xFF45FFD4),Color(0xFF4EBBB6)],
                   begin: Alignment.topLeft, // Start from the top left
                   end: Alignment.bottomRight, // End at the bottom right
                 ),
@@ -41,7 +52,7 @@ class _StoryState extends State<Story> {
                       ),
                     ),
 
-                    Image.asset("assets/images/mamy.png"),
+                    Image.asset("assets/images/mamy1.png"),
                   ],
                 ),
               )
@@ -49,53 +60,9 @@ class _StoryState extends State<Story> {
           ),
          Padding(
            padding: const EdgeInsets.only(right: 160.0,top: 20),
-           child: Text("Popular stories",style: TextStyle(fontSize: 25,color: Colors.deepOrange,fontWeight: FontWeight.bold),),
+           child: Text("Popular stories",style: TextStyle(fontSize: 25,color: Color(0xFF45FFD4),fontWeight: FontWeight.bold),),
          ),
-         /* Stack(
-            children: [
-              Container(
-                width: 450,
-                height: 350,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(70),
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(70),
-                  ),
-                  child: Image.asset(
-                    "assets/images/str.jpg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 40,
-                left: 15,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18.0, right: 30),
-            child: Text(
-              "Enjoy with the most beautiful stories",
-              style: TextStyle(
-                fontSize: 21,
-                color: Colors.deepOrange,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),*/
+
           SizedBox(height: 20),
 
           // Scrollable list of Cont widgets
@@ -106,7 +73,7 @@ class _StoryState extends State<Story> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      InkWell(child: Cont(img: "assets/images/cast.png", txt: "The green castle", soundUrl: "audio/أ.mp3", detailImage: "assets/images/castle.png",)),
+                      InkWell(child: Cont(img: "assets/images/cast.png", txt: "The green castle", soundUrl: "audio/أ.mp3", detailImage: "assets/images/str1.png",)),
                       SizedBox(height: 30),
                       InkWell(child: Cont(img: "assets/images/sea.jpeg", txt: "Sheep in field", soundUrl: '', detailImage: '',)),
                       SizedBox(height: 30),
@@ -170,10 +137,10 @@ class _ContState extends State<Cont> {
         height: 90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.white70,
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.deepOrange.withOpacity(0.2),
+              color: Color(0xFF45FFD4).withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 5,
               offset: Offset(0, 3),
@@ -185,7 +152,8 @@ class _ContState extends State<Cont> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: CircleAvatar(
-                backgroundColor: Colors.orange[100],
+               // E7F4F3
+                backgroundColor: Colors.white,
                 radius: 45,
                 child: ClipOval(
 
@@ -199,7 +167,7 @@ class _ContState extends State<Cont> {
                 widget.txt,
                 style: TextStyle(
                   fontSize: 22,
-                  color: Colors.deepOrange,
+                  color:  Color(0xFF45FFD4),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -208,7 +176,7 @@ class _ContState extends State<Cont> {
       IconButton(
       icon: Icon(
       Icons.favorite,
-      color: _isFavorited ? Colors.deepOrange : Colors.white, // Change color based on the state
+      color: _isFavorited ? Color(0xFF45FFD4) : Colors.grey, // Change color based on the state
       size: 35,
       ),
       onPressed: () {

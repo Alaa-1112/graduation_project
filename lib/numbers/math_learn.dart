@@ -65,7 +65,7 @@ class _LearnMathState extends State<LearnMath> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.yellow.shade50,
+      backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
         child: Column(
@@ -100,19 +100,35 @@ class _LearnMathState extends State<LearnMath> {
                         ),
                       );
                     },
-                    child: Card(
-                      color: Color(0xFFFEB18F),
-                      child: Center(
-                        child: Text(
-                          num.num,
-                          style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        child: Card(
+                          elevation: 4, // Optional: Adds shadow to the card
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Optional: Rounded corners
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xFF45FFD4), // Start color
+                                  Color(0xFFF7BBBC), // End color
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(10), // Match the card's border radius
+                            ),
+                            child: Center(
+                              child: Text(
+                                num.num,
+                                style: TextStyle(
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
                   ),
                 )
                     .toList(),

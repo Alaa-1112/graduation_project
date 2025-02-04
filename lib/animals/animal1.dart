@@ -25,6 +25,13 @@ class _Animal1State extends State<Animal1> {
         child: Stack(
           children: [
             Positioned(
+              top: 30,
+                left: 6,
+                child: IconButton( onPressed: () {
+                 Navigator.of(context).pop('');
+                       },
+                    icon: Icon(Icons.arrow_back_ios,color: Colors.white,))),
+            Positioned(
               top: 40,
               left: 30,
               child: Forest(
@@ -32,13 +39,13 @@ class _Animal1State extends State<Animal1> {
                 Name: 'Monkey',
                 sound: 'audio/أ.mp3',
                 width: 100,
-                height: 100, image:  'assets/images/monk_life.jpg',
+                height: 100, image:  'assets/images/monkk.jpg',
                 Name1: 'قرد',
-                nameColor: Colors.brown,
-                name1Top: 50,
-                name1Left: 200,
-                nameTop: 140,
-                nameLeft: 130,
+                nameColor: Colors.brown.shade800,
+                name1Top: 250,
+                name1Left: 150,
+                nameTop: 330,
+                nameLeft: 70,
               ),
             ),
             Positioned(

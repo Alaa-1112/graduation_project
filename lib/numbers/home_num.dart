@@ -15,11 +15,17 @@ class _NumberHomeState extends State<NumberHome> {
         width: double.infinity,
         decoration: BoxDecoration(
           //borderRadius: BorderRadius.all(Radius.circular(20)),
-          gradient: LinearGradient(
-            colors: [Color(0xFFFEB18F), Colors.yellow[200]!],
+          gradient:
+          LinearGradient(
+            colors: [Color(0xFF45FFD4), Color(0xFFF7BBBC)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
+          /*LinearGradient(
+            colors: [Color(0xFFFEB18F), Colors.yellow[200]!],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),*/
 
         ),
         child: Column(

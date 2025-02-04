@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kids/onboarding/onboarding1.dart';
+import 'package:kids/onboarding/welcome_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +10,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: SplashScreen(toggleTheme: (bool ) {  },),
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
+  final Function(bool) toggleTheme;
+
+  const SplashScreen({super.key, required this.toggleTheme});
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -36,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Onboarding1()),
+        MaterialPageRoute(builder: (context) => WelcomPage()),
       );
     });
   }
@@ -53,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             bottom: _moveToCenter ? MediaQuery.of(context).size.height / 2 - 100 : 0,
             left: MediaQuery.of(context).size.width/2 -200,
             child: Image.asset(
-              'assets/images/smart.png',
+              'assets/images/nany.png',
               width: 400,
               height: 400,
             ),

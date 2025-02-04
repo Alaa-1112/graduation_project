@@ -183,7 +183,7 @@ class Content extends StatelessWidget {
             bottomRight: Radius.circular(30),
           ),
           gradient: LinearGradient(
-            colors: [Color(0xFFFEB18F), Colors.yellow[200]!],
+            colors: [Color(0xFF45FFD4), Color(0xFFF7BBBC)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

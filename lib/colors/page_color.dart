@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 class ColorPage extends StatefulWidget {
   const ColorPage({super.key});
 
@@ -10,10 +10,11 @@ class _ColorPageState extends State<ColorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+     // backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
         height: double.infinity,
+
         child: Column(
           children: [
             Container(
@@ -142,4 +143,136 @@ class GradientText extends StatelessWidget {
       ),
     );
   }
+}*/
+
+
+import 'package:flutter/material.dart';
+
+class ColorPage extends StatefulWidget {
+  const ColorPage({super.key});
+
+  @override
+  State<ColorPage> createState() => _ColorPageState();
 }
+
+class _ColorPageState extends State<ColorPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _topAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
+
+    _topAnimation = Tween<double>(begin: -150, end: 10).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    _controller.forward(); // بدء الأنيميشن
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 350.0, top: 30),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop('');
+                    },
+                    icon: Icon(Icons.arrow_back, color: Colors.black, size: 30),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Positioned(
+                top: _topAnimation.value,
+                left: MediaQuery.of(context).size.width / 2 - 150,
+                child: child!,
+              );
+            },
+            child: Image.asset(
+              "assets/images/pallons.png",
+              width: 300,
+              height: 400,
+            ),
+          ),
+          Center(
+            child: Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              alignment: WrapAlignment.center,
+              children: colors.map((color) {
+                return buildCrayonContainer(color);
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCrayonContainer(Color color) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 70,
+          height: 70,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 5.0,
+                spreadRadius: 2.0,
+                offset: Offset(2.0, 2.0),
+              ),
+            ],
+          ),
+        ),
+        Image.asset(
+          "assets/images/blue_crayon.png",
+          width: 60,
+          height: 150,
+          color: color,  // This sets the color of the crayon
+        ),
+      ],
+    );
+  }
+
+  final List<Color> colors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+    Colors.pink,
+  ];
+}
+
+
+

@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:kids/home/profile.dart';
 import 'package:kids/home/profile_image.dart';
 import 'package:kids/home/setting.dart';
+import 'package:kids/islamic/islamic-home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../alphapets/arabic.dart';
-import '../alphapets/english.dart';
+
 import '../animals/animal1.dart';
+import '../animals/home_alimant.dart';
 import '../animals/splash.dart';
+import '../arabic/arabic.dart';
+import '../english/english.dart';
+import '../colors/page_color.dart';
+import '../habits/home.dart';
 import '../numbers/home_num.dart';
 import '../story/story.dart';
 
@@ -26,76 +31,99 @@ class _HomeState extends State<Home> {
     {
       "image": "assets/images/arabic.png",
       "title": "اللغة العربية",
-      "color": "8E97FD",
-      "text_color": "FFECCC",
-      "page": ArabicAlphabetsPage(),  // Link to Arabic page
+      "color": "0CF2EE",
+      "text_color": "FDFDFD",
+      "page": ArabicAlphabetsPage(), // Link to Arabic page
+      "gradient": [
+        "0CF2EE", // اللون الأول
+        "EAF2DC", // اللون الثاني
+      ],
     },
     {
-      "image": "assets/images/english.png",
+      "image": "assets/images/abc.png",
       "title": "اللغة الانجليزية",
-      "color": "FA6E5A",
-      "text_color": "FFECCC",
-      "page": EnglishAlphabetsPage(),  // Link to English page
+      "color": "4DBBB2",
+      "text_color": "FDFDFD",
+      "page": EnglishAlphabetsPage(),
+      "gradient": [
+        "92F3E1", // اللون الأول
+        "E8DC9D", // اللون الثاني
+      ],// Link to English page
     },
     {
       "image": "assets/images/numbers.png",
       "title": "الرياضيات",
-      "color": "FEB18F",
-      "text_color": "FFECCC",
-      "page": NumberHome(),  // Link to Numbers page
+      "color": "45FFD4",
+      "text_color": "FDFDFD",
+      "page": NumberHome(),
+      "gradient": [
+        "45FFD4", // اللون الأول
+        "F7BBBC", // اللون الثاني
+      ],// Link to Numbers page
     },
     {
       "image": "assets/images/animal.png",
       "title": "الحيوانات",
-      "color": "FFCF86",
-      "text_color": "FFECCC",
-      "page":  Animal1(),  // Link to Animals page
+      "color": "BAF6F0",
+      "text_color": "FDFDFD",
+      "page": Homeanimals(),
+      "gradient": [
+        "BAF6F0", // اللون الأول
+        "B2F6C3", // اللون الثاني
+      ],// Link to Animals page
     },
     {
       "image": "assets/images/colors.png",
       "title": "الالوان",
-      "color": "F2E266",
-      "text_color": "FFECCC",
+      "color": "86FEE8",
+      "text_color": "FDFDFD",
+      "page": ColorPage(),
+      "gradient": [
+        "86FEE8", // اللون الأول
+        "DCE6F2", // اللون الثاني
+      ],
     },
     {
       "image": "assets/images/stories.png",
       "title": "القصص",
-      "color": "F79131",
-      "text_color": "FFECCC",
+      "color": "45FFD4",
+      "text_color": "FDFDFD",
       "page": Story(),
     },
     {
       "image": "assets/images/eslam.png",
       "title": "الدين الاسلامى",
-      "color": "C18863",
-      "text_color": "FFECCC",
+      "page": Islamic(),
+      "color": "61FFF2",
+      "text_color": "FDFDFD",
+      "gradient": [
+        "61FFF2", // اللون الأول
+        "F6E6B9", // اللون الثاني
+      ],
     },
     {
       "image": "assets/images/quiz.png",
       "title": "ألغاز",
-      "color": "C749B4",
-      "text_color": "FFECCC",
+      "color": "63DBD1",
+      "text_color": "FDFDFD",
+      "gradient": [
+        "63DBD1", // اللون الأول
+        "DAF6B9", // اللون الثاني
+      ],
+    },
+    {
+      "image": "assets/images/habits.png",
+      "title": "عادات مفيدة",
+      "page" : Habit(),
+      "color": "86FFF5",
+      "text_color": "FDFDFD",
+      "gradient": [
+        "86FFF5", // اللون الأول
+        "F6A8CC", // اللون الثاني
+      ],
     },
     // Add more categories here...
   ];
-
-  /*File? _profileImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadProfileImage();
-  }
-
-  Future<void> _loadProfileImage() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? imagePath = prefs.getString('profileImage');
-    if (imagePath != null) {
-      setState(() {
-        _profileImage = File(imagePath);
-      });
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +144,7 @@ class _HomeState extends State<Home> {
                       ),
                     );
                   },
-                  child:ValueListenableBuilder<File?>(
+                  child: ValueListenableBuilder<File?>(
                     valueListenable: homeImageNotifier,
                     builder: (context, imageFile, child) {
                       return GestureDetector(
@@ -137,7 +165,6 @@ class _HomeState extends State<Home> {
                     },
                   ),
                 ),
-
                 IconButton(
                   onPressed: () {
                     Navigator.push(
@@ -182,7 +209,17 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: HexColor.fromHex(item["color"]),
+                        gradient: item["gradient"] != null
+                            ? LinearGradient(
+                          colors: [
+                            HexColor.fromHex(item["gradient"][0]), // اللون الأول
+                            HexColor.fromHex(item["gradient"][1]), // اللون الثاني
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        )
+                            : null,
+                        color: item["gradient"] == null ? HexColor.fromHex(item["color"]) : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -220,13 +257,19 @@ class _HomeState extends State<Home> {
 }
 
 class HexColor extends Color {
-  HexColor(final int hexColor) : super(hexColor);
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 
-  static Color fromHex(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.parse(buffer.toString(), radix: 16));
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF$hexColor"; // Add opacity if not provided
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  // تعريف دالة fromHex بشكل صحيح
+  static Color fromHex(String hexColor) {
+    return HexColor(hexColor);
   }
 }
 

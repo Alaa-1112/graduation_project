@@ -77,13 +77,13 @@ class _StoryDetailPageState extends State<StoryDetailPage> {
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: Colors.orange,
+                color:Color(0xFF45FFD4),
               ),
             ),
             trailing: IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: _isFavorited ? Colors.deepOrange : Colors.grey,
+                color: _isFavorited ? Color(0xFF45FFD4): Colors.grey,
                 size: 35,
               ),
               onPressed: () {
@@ -103,11 +103,11 @@ class _StoryDetailPageState extends State<StoryDetailPage> {
                 seekToSecond(value.toInt());
               });
             },
-            activeColor: Colors.orange,
+            activeColor: Color(0xFF45FFD4),
             inactiveColor: Colors.grey,
             divisions: duration.inSeconds > 0 ? duration.inSeconds : null,
             label: "${position.inSeconds.toDouble().toStringAsFixed(0)}s",
-            thumbColor: Colors.orange,
+            thumbColor: Color(0xFF45FFD4),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -134,7 +134,7 @@ class _StoryDetailPageState extends State<StoryDetailPage> {
               children: [
                 // Decrease 10 seconds button
                 IconButton(
-                  icon: Icon(Icons.replay_10, color: Colors.deepOrange,size: 33,),
+                  icon: Icon(Icons.replay_10, color:Color(0xFF2FA9A3),size: 33,),
                   onPressed: () {
                     setState(() {
                       position = position - Duration(seconds: 10);
@@ -143,12 +143,12 @@ class _StoryDetailPageState extends State<StoryDetailPage> {
                   },
                 ),
                 SizedBox(width: 30,),
-                Icon(Icons.skip_previous,size: 33,color: Colors.deepOrange),
+                Icon(Icons.skip_previous,size: 33,color:Color(0xFF2FA9A3)),
                 SizedBox(width: 40,),
                 IconButton(
                   icon: Icon(
                     isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill,
-                    color: Colors.orange,
+                    color: Color(0xFF45FFD4),
                     size: 50,
                   ),
                   onPressed: () async {
@@ -164,10 +164,10 @@ class _StoryDetailPageState extends State<StoryDetailPage> {
                 ),
                 // Increase 10 seconds button
                 SizedBox(width: 30,),
-                Icon(Icons.skip_next,size: 33,color: Colors.deepOrange),
+                Icon(Icons.skip_next,size: 33,color: Color(0xFF2FA9A3)),
                 SizedBox(width: 30,),
                 IconButton(
-                  icon: Icon(Icons.forward_10, color: Colors.deepOrange,size: 33,),
+                  icon: Icon(Icons.forward_10, color: Color(0xFF2FA9A3),size: 33,),
                   onPressed: () {
                     setState(() {
                       position = position + Duration(seconds: 10);
